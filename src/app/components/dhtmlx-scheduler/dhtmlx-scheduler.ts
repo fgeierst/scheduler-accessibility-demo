@@ -1,16 +1,16 @@
 import {
-  Component,
-  ElementRef,
-  OnInit,
-  OnDestroy,
-  viewChild,
-  input,
-  output,
   ChangeDetectionStrategy,
+  Component,
   effect,
-  signal,
+  ElementRef,
+  input,
+  OnDestroy,
+  OnInit,
+  output,
+  viewChild,
 } from '@angular/core';
 import { scheduler, SchedulerStatic } from 'dhtmlx-scheduler';
+import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.css';
 
 export interface SchedulerEvent {
   id: number | string;
@@ -50,16 +50,7 @@ export interface SchedulerConfig {
       <div class="dhx_cal_data"></div>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
-    `,
-  ],
+  styleUrls: ['./dhtmlx-scheduler.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
@@ -68,7 +59,7 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
 
   /** Scheduler instance */
   private schedulerInstance?: SchedulerStatic;
-  
+
   /** Flag to track if scheduler is initialized */
   private isInitialized = false;
 
@@ -120,20 +111,12 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
 
     // Enable keyboard navigation plugin
     scheduler.plugins({
-      key_nav: true
+      key_nav: true,
     });
 
     // Configure scheduler
     scheduler.config.date_format = this.dateFormat();
-    scheduler.config.header = [
-      'day',
-      'week',
-      'month',
-      'date',
-      'prev',
-      'today',
-      'next',
-    ];
+    scheduler.config.header = ['day', 'week', 'month', 'date', 'prev', 'today', 'next'];
 
     // Initialize scheduler
     scheduler.init(container, this.initialDate(), this.initialMode());
@@ -145,7 +128,7 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
     this.setupEventHandlers();
 
     // Set up custom keyboard shortcuts
-    this.setupKeyboardShortcuts();
+    this.setupMacOSAltNumberShortcuts();
 
     // Set instance and mark as initialized
     this.schedulerInstance = scheduler;
@@ -158,7 +141,7 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
   private setupDataAreaAccessibility(): void {
     const container = this.schedulerContainer().nativeElement;
     const dataArea = container.querySelector('.dhx_cal_data') as HTMLElement;
-    
+
     if (dataArea) {
       // Make the data area focusable
       dataArea.setAttribute('tabindex', '-1');
@@ -228,52 +211,34 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
   private restoreFocusToDataArea(): void {
     const container = this.schedulerContainer().nativeElement;
     const dataArea = container.querySelector('.dhx_cal_data') as HTMLElement;
-    
+
     if (dataArea) {
       // Make the data area focusable if it isn't already
       if (!dataArea.hasAttribute('tabindex')) {
         dataArea.setAttribute('tabindex', '-1');
       }
-      
+
       // Focus the data area
       dataArea.focus();
     }
   }
 
-  private setupKeyboardShortcuts(): void {
-    // Add a custom shortcut to show event details with Shift+W
-    scheduler.addShortcut("shift+w", (e) => {
-      const target = e.target as HTMLElement;
-      const eventElement = target.closest("[event_id]");
-      
-      if (eventElement) {
-        const eventId = eventElement.getAttribute("event_id");
-        if (eventId) {
-          scheduler.showQuickInfo(eventId);
-        }
-      }
-      return true;
-    }, "event");
-
+  private setupMacOSAltNumberShortcuts(): void {
     // Fix Alt+number shortcuts for macOS
     // On macOS, Alt+number produces special characters, so we need to handle the actual key codes
-    this.setupMacOSAltNumberShortcuts();
-  }
-
-  private setupMacOSAltNumberShortcuts(): void {
     const container = this.schedulerContainer().nativeElement;
-    
+
     // Add keydown listener to handle Alt+number on macOS
     container.addEventListener('keydown', (e: KeyboardEvent) => {
       // Check if Alt/Option key is pressed
       if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
         // Map of keyCodes for number keys (1-9)
         const numberKey = e.code.match(/^(Digit|Numpad)([1-9])$/);
-        
+
         if (numberKey) {
           const num = parseInt(numberKey[2], 10);
           const tabs = container.querySelectorAll('.dhx_cal_navline .dhx_cal_tab');
-          
+
           if (tabs[num - 1]) {
             e.preventDefault();
             (tabs[num - 1] as HTMLElement).click();
@@ -283,7 +248,6 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Get the scheduler instance for advanced usage */
   getSchedulerInstance(): SchedulerStatic | undefined {
     return this.schedulerInstance;
   }

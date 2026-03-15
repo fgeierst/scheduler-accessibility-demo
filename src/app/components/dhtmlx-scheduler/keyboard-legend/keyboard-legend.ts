@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, input, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 
 export interface KeyboardShortcut {
   keys: string;
@@ -23,13 +23,10 @@ interface KeyMapping {
         <div class="inline-shortcuts">
           <span class="inline-hint">
             <strong>Keyboard shortcuts:</strong>
-            <kbd>Tab</kbd> focus · 
-            <kbd>Arrows</kbd> navigate · 
-            <kbd>Enter</kbd> create · 
-            <kbd>E</kbd> select · 
-            <kbd>{{ keys().ctrl }}+C/V</kbd> copy/paste
+            <kbd>Tab</kbd> focus · <kbd>Arrows</kbd> navigate · <kbd>Enter</kbd> create ·
+            <kbd>e</kbd> select event
           </span>
-          <details class="full-legend-details">
+          <!-- <details class="full-legend-details">
             <summary class="details-summary">
               More
             </summary>
@@ -132,19 +129,16 @@ interface KeyMapping {
               </div>
             </div>
           </div>
-          </details>
+          </details> -->
         </div>
       </div>
     } @else {
-      <!-- Full version (legacy) -->
-      <div 
-        [id]="legendId()" 
-        class="keyboard-legend"
-      >
+      <!-- Full version -->
+      <div [id]="legendId()" class="keyboard-legend">
         <div class="legend-header">
           <h2>Keyboard Shortcuts</h2>
         </div>
-        
+
         <div class="legend-content">
           <div class="shortcuts-grid">
             <div class="shortcut-category">
@@ -155,15 +149,21 @@ interface KeyMapping {
                   <dd>Focus scheduler</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().alt }}</kbd> + <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().alt }}</kbd> + <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd>
+                  </dt>
                   <dd>Switch between views</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>←</kbd>/<kbd>→</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>←</kbd>/<kbd>→</kbd>
+                  </dt>
                   <dd>Navigate to previous/next date</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>↑</kbd>/<kbd>↓</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>↑</kbd>/<kbd>↓</kbd>
+                  </dt>
                   <dd>Scroll data area</dd>
                 </div>
                 <div class="shortcut-item">
@@ -171,7 +171,9 @@ interface KeyMapping {
                   <dd>Go to current date</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>Enter</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>Enter</kbd>
+                  </dt>
                   <dd>Create new event</dd>
                 </div>
               </dl>
@@ -211,15 +213,21 @@ interface KeyMapping {
                   <dd>Open event details</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>C</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>C</kbd>
+                  </dt>
                   <dd>Copy event</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>X</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>X</kbd>
+                  </dt>
                   <dd>Cut event</dd>
                 </div>
                 <div class="shortcut-item">
-                  <dt><kbd>{{ keys().ctrl }}</kbd> + <kbd>V</kbd></dt>
+                  <dt>
+                    <kbd>{{ keys().ctrl }}</kbd> + <kbd>V</kbd>
+                  </dt>
                   <dd>Paste event</dd>
                 </div>
                 <div class="shortcut-item">
@@ -444,14 +452,14 @@ interface KeyMapping {
         .shortcuts-grid {
           grid-template-columns: 1fr;
         }
-        
+
         .inline-shortcuts {
           flex-direction: column;
           align-items: flex-start;
           gap: 0.5rem;
           font-size: 0.8rem;
         }
-        
+
         .inline-hint {
           font-size: 0.8rem;
         }
@@ -469,14 +477,13 @@ interface KeyMapping {
 export class KeyboardLegendComponent {
   /** ID for the legend element to be referenced by aria-describedby */
   legendId = input<string>('scheduler-keyboard-legend');
-  
+
   /** Variant of the legend: 'inline' for compact version with details, 'full' for expanded version */
   variant = input<'inline' | 'full'>('full');
 
   /** Detect if the user is on macOS */
   private isMac = signal<boolean>(
-    typeof navigator !== 'undefined' && 
-    /Mac|iPhone|iPad|iPod/.test(navigator.platform)
+    typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.platform),
   );
 
   /** Computed key mappings based on OS */
@@ -485,7 +492,7 @@ export class KeyboardLegendComponent {
     return {
       ctrl: mac ? '⌘' : 'Ctrl',
       alt: mac ? '⌥' : 'Alt',
-      meta: mac ? '⌘' : 'Win'
+      meta: mac ? '⌘' : 'Win',
     };
   });
 }

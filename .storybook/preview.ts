@@ -13,17 +13,14 @@ const preview: Preview = {
       config: {
         rules: [
           {
-            // Customize accessibility rules if needed
             id: 'color-contrast',
             enabled: true,
           },
         ],
       },
     },
-    // Disable page reloads between stories
     layout: 'fullscreen',
   },
-  // Disable automatic page reloads
   globalTypes: {},
 };
 

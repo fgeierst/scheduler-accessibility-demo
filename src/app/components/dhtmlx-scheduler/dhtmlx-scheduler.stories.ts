@@ -48,7 +48,7 @@ class DhtmlxSchedulerDemoComponent {
     },
   ];
 
-  initialDate = new Date(2024, 9, 7); // October 7, 2024
+  initialDate = new Date(2024, 9, 7, 10); // October 7, 2024
 }
 
 const meta: Meta<DhtmlxSchedulerDemoComponent> = {
@@ -67,4 +67,4 @@ type Story = StoryObj<DhtmlxSchedulerDemoComponent>;
 /**
  * DHTMLX Scheduler with inline keyboard legend
  */
-export const Default: Story = {};
+export const Playground: Story = {};
