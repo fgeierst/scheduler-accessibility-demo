@@ -1,0 +1,55 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="FullCalendar/Docs" />
+
+# FullCalendar
+
+- Version: 6.1.20
+- License: MIT (non-commercial use)
+- [FullCalendar Repository](https://github.com/fullcalendar/fullcalendar)
+- [Documentation](https://fullcalendar.io/docs)
+- [Angular Integration](https://fullcalendar.io/docs/angular)
+
+---
+
+## Keyboard Navigation
+
+FullCalendar includes built-in keyboard navigation support.
+
+### General Navigation
+
+| Shortcut         | Action                              |
+| ---------------- | ----------------------------------- |
+| <kbd>Tab</kbd>   | Navigate through interactive elements |
+| <kbd>Enter</kbd> | Activate focused element            |
+| <kbd>Esc</kbd>   | Close dialogs/cancel actions        |
+
+### Calendar Navigation
+
+| Action           | Description                         |
+| ---------------- | ----------------------------------- |
+| Click view buttons | Switch between Day/Week/Month     |
+| Click prev/next    | Navigate to previous/next period  |
+| Click "today"      | Jump to current date              |
+
+### Event Interaction
+
+| Action           | Description                         |
+| ---------------- | ----------------------------------- |
+| Click + Drag     | Create new event                    |
+| Drag event       | Move event to new time              |
+| Drag edge        | Resize event duration               |
+| Click event      | Open event details/delete           |
+
+> **Note:** On macOS, <kbd>Cmd</kbd> (⌘) is used instead of <kbd>Ctrl</kbd>, and <kbd>Option</kbd> (⌥) instead of <kbd>Alt</kbd>.
+
+## Semantic Structure
+
+FullCalendar includes built-in accessibility features with proper ARIA attributes.
+
+### ARIA Attributes
+
+- **`role="application"`** - The calendar container uses the application role to indicate it has custom interaction patterns
+- **`aria-describedby`** - Links the calendar to the keyboard legend for screen reader users
+- **Button labels** - All navigation buttons have accessible labels for screen readers
+- **Event labels** - Events include title and time information for accessibility
