@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "outDir": ""
+  },
+  "files": [
+    "../src/polyfills.ts"
+  ],
+  "exclude": [
+    "../src/test.ts",
+    "../src/**/*.spec.ts",
+    "../projects/**/*.spec.ts"
+  ],
+  "include": [
+    "../src/**/*",
+    "../projects/**/*"
+  ]
+}

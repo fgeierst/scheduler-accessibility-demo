@@ -1,3 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+@import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.css';
+
+/* ====================================
+   CALENDAR GRID FOCUS INDICATOR
+   ==================================== */
+
+/* Calendar grid cell focus with double outline for visibility over events */
+.dhx_focus_slot {
+  outline: none !important;
+  background-color: rgba(13, 110, 253, 0.08) !important;
+  /* Ensure it appears above events */
+  position: absolute !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  z-index: 150 !important; /* Higher than events (z-index: 100) */
+  
+  /* Double outline: white inner + blue outer for visibility over blue events */
+  box-shadow: 
+    inset 0 0 0 2px #ffffff,
+    inset 0 0 0 5px #0d6efd !important;
+}
+
+/* When scheduler loses focus, keep subtle background */
+.dhx_cal_container:not(:focus-within) .dhx_focus_slot {
+  background-color: rgba(13, 110, 253, 0.03) !important;
+  box-shadow: inset 0 0 0 1px rgba(13, 110, 253, 0.3) !important;
+}
+
+/* ====================================
+   EVENT FOCUS INDICATOR
+   ==================================== */
+
+/* Event focus styling with double outline (white + blue) for better visibility */
+.dhx_cal_event_selected,
+.dhx_cal_event:focus,
+.dhx_cal_event.dhx_cal_event_selected,
+.dhx_cal_event_clear.dhx_cal_event_selected,
+.dhx_cal_event_clear:focus,
+.dhx_cal_event_line.dhx_cal_event_selected,
+.dhx_cal_event_line:focus {
+  outline: 3px solid #0d6efd !important;
+  outline-offset: 2px !important;
+  z-index: 100 !important;
+  position: relative !important;
+}
