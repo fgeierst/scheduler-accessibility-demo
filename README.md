@@ -1,6 +1,6 @@
 # Scheduler Accessibility Demo
 
-An accessible event scheduler built with Angular and dhtmlx-scheduler, featuring comprehensive keyboard navigation and WCAG 2.1 AA compliance.
+Showcase keyboard navigation and semantic structure of different JavaScript scheduler and calendar frameworks.
 
 ## Quick Start
 
