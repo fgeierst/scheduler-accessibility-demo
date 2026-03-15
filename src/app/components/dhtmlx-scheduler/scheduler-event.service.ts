@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SchedulerEvent } from './scheduler.component';
+import { SchedulerEvent } from './dhtmlx-scheduler';
 
 @Injectable({
   providedIn: 'root',

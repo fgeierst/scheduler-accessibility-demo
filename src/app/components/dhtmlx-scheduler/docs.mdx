@@ -1,0 +1,64 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="DHTMLX Scheduler/Docs" />
+
+# DHTMLX Scheduler
+
+- [DHTMLX Scheduler Repository](https://github.com/DHTMLX/scheduler)
+- [Documentation](https://docs.dhtmlx.com/scheduler/)
+
+---
+
+## Keyboard Navigation
+
+Keyboard navigation must be enable via the [`key_nav` setting](https://docs.dhtmlx.com/scheduler/guides/keyboard-navigation/).
+
+### General Navigation
+
+| Shortcut                                                | Action                                |
+| ------------------------------------------------------- | ------------------------------------- |
+| <kbd>Tab</kbd>                                          | Focus scheduler                       |
+| <kbd>Alt</kbd> + <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> | Switch between views (Day/Week/Month) |
+| <kbd>Ctrl</kbd> + <kbd>←</kbd>/<kbd>→</kbd>             | Navigate to previous/next date        |
+| <kbd>Ctrl</kbd> + <kbd>↑</kbd>/<kbd>↓</kbd>             | Scroll data area                      |
+| <kbd>Home</kbd>                                         | Go to current date                    |
+| <kbd>Ctrl</kbd> + <kbd>Enter</kbd>                      | Create new event                      |
+
+### Time Slots
+
+| Shortcut                                 | Action                        |
+| ---------------------------------------- | ----------------------------- |
+| <kbd>Arrow Keys</kbd>                    | Navigate over time slots      |
+| <kbd>Shift</kbd> + <kbd>Arrow Keys</kbd> | Extend time slot selection    |
+| <kbd>Enter</kbd>                         | Create event in selected slot |
+
+### Events
+
+| Shortcut                                       | Action                     |
+| ---------------------------------------------- | -------------------------- |
+| <kbd>E</kbd> / <kbd>Shift</kbd> + <kbd>E</kbd> | Select next/previous event |
+| <kbd>Arrow Keys</kbd>                          | Navigate to time slot      |
+| <kbd>Enter</kbd>                               | Open event details         |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd>                 | Copy event                 |
+| <kbd>Ctrl</kbd> + <kbd>X</kbd>                 | Cut event                  |
+| <kbd>Ctrl</kbd> + <kbd>V</kbd>                 | Paste event                |
+| <kbd>Shift</kbd> + <kbd>W</kbd>                | Show event quick info      |
+
+### Modal Windows
+
+| Shortcut         | Action                |
+| ---------------- | --------------------- |
+| <kbd>Enter</kbd> | Confirm and close     |
+| <kbd>Esc</kbd>   | Close without changes |
+
+> **Note:** On macOS, <kbd>Cmd</kbd> (⌘) is used instead of <kbd>Ctrl</kbd>, and <kbd>Option</kbd> (⌥) instead of <kbd>Alt</kbd>.
+
+## Semantic Structure
+
+Aria attributes [are enabled by default](https://docs.dhtmlx.com/scheduler/guides/accessibility/#wai-aria-attributes).
+
+### ARIA Attributes
+
+- **`role="application"`** - The scheduler container uses the application role to indicate it has custom keyboard navigation
+- **`aria-describedby`** - Links the scheduler to the keyboard legend for screen reader users
+- **`aria-label="Calendar grid"`** - Provides a descriptive label for the data area

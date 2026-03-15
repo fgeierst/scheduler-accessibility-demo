@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { KeyboardLegendComponent } from './keyboard-legend.component';
+import { KeyboardLegendComponent } from './keyboard-legend';
 
 const meta: Meta<KeyboardLegendComponent> = {
-  title: 'Components/KeyboardLegend',
+  title: 'DHTMLX Scheduler/Legend',
   component: KeyboardLegendComponent,
   tags: ['autodocs'],
   argTypes: {

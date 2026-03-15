@@ -27,7 +27,7 @@ export interface SchedulerConfig {
 }
 
 @Component({
-  selector: 'app-scheduler',
+  selector: 'app-dhtmlx-scheduler',
   template: `
     <div
       #schedulerContainer
@@ -62,7 +62,7 @@ export interface SchedulerConfig {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SchedulerComponent implements OnInit, OnDestroy {
+export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
   /** Reference to the scheduler container element */
   private schedulerContainer = viewChild.required<ElementRef>('schedulerContainer');
 
