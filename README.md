@@ -4,9 +4,8 @@ An accessible event scheduler built with Angular and dhtmlx-scheduler, featuring
 
 ## Quick Start
 
-
 ```bash
-git clone 
+git clone https://github.com/fgeierst/scheduler-accessibility-demo
 cd scheduler-accessibility-demo
 pnpm install
 pnpm storybook
