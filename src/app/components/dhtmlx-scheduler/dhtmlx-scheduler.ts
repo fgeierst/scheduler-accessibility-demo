@@ -33,7 +33,7 @@ export interface SchedulerConfig {
       #schedulerContainer
       class="dhx_cal_container"
       role="application"
-      [attr.aria-describedby]="keyboardLegendId()"
+      aria-label="DHTMLX Scheduler"
       [style.width]="width()"
       [style.height]="height()"
     >
@@ -80,9 +80,6 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
 
   /** Date format */
   dateFormat = input<string>('%Y-%m-%d %H:%i');
-
-  /** ID of the keyboard legend element for aria-describedby */
-  keyboardLegendId = input<string>('scheduler-keyboard-legend');
 
   /** Event when a new event is created */
   eventCreated = output<SchedulerEvent>();

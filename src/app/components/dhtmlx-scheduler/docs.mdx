@@ -1,6 +1,7 @@
-import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as DhtmlxSchedulerStories from './dhtmlx-scheduler.stories';
 
-<Meta title="DHTMLX Scheduler/Docs" />
+<Meta of={DhtmlxSchedulerStories} name="Docs" />
 
 # DHTMLX Scheduler
 
@@ -13,7 +14,7 @@ import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 ## Keyboard Navigation
 
-Keyboard navigation must be enable via the [`key_nav` setting](https://docs.dhtmlx.com/scheduler/guides/keyboard-navigation/).
+Keyboard navigation must be enabled via the [`key_nav` setting](https://docs.dhtmlx.com/scheduler/guides/keyboard-navigation/).
 
 ### General Navigation
 
@@ -61,5 +62,4 @@ Aria attributes [are enabled by default](https://docs.dhtmlx.com/scheduler/guide
 ### ARIA Attributes
 
 - **`role="application"`** - The scheduler container uses the application role to indicate it has custom keyboard navigation
-- **`aria-describedby`** - Links the scheduler to the keyboard legend for screen reader users
 - **`aria-label="Calendar grid"`** - Provides a descriptive label for the data area

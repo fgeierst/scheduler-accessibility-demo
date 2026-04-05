@@ -28,7 +28,7 @@ export interface CalendarEvent {
     <div
       class="fullcalendar-wrapper"
       role="application"
-      [attr.aria-describedby]="keyboardLegendId()"
+      aria-label="FullCalendar"
       [style.width]="width()"
       [style.height]="height()"
     >
@@ -57,9 +57,6 @@ export class FullcalendarComponent {
 
   /** Initial view mode */
   initialView = input<string>('timeGridWeek');
-
-  /** ID of the keyboard legend element for aria-describedby */
-  keyboardLegendId = input<string>('calendar-keyboard-legend');
 
   /** Event when a new event is created */
   eventCreated = output<CalendarEvent>();

@@ -1,0 +1,94 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Calendars/Apple Calendar/Docs" />
+
+# Apple Calendar
+
+- Product: Apple Calendar for macOS
+- Verified app version on this machine: 16.0 (build 3036.4.13)
+- Verified operating system on this machine: macOS 26.4 (build 25E246)
+- Verification date: April 5, 2026
+- Official documentation:
+  - [Keyboard shortcuts in Calendar on Mac](https://support.apple.com/guide/calendar/ical002/mac)
+  - [Go to specific dates or change views in Calendar on Mac](https://support.apple.com/guide/calendar/icl1010/mac)
+
+---
+
+## Local Test Method
+
+This repository now includes a machine-local verification script:
+
+```bash
+pnpm verify:apple-calendar
+```
+
+What the script does:
+
+1. Launches Calendar from `/System/Applications/Calendar.app`.
+2. Creates or reuses a temporary event named `Codex Apple Calendar accessibility check` in the `Privat` calendar.
+3. Dumps keyboard shortcuts from the native `File` and `View` menus through macOS accessibility APIs.
+4. Dumps a stable accessibility summary of the main window, including the window role, view switcher, date lists, and sample event descriptions.
+
+This is a native AppKit application, so semantic verification is based on the macOS accessibility tree rather than HTML or ARIA markup.
+
+---
+
+## Keyboard Functionality
+
+The table below separates direct local verification from shortcuts that are documented by Apple but were only checked indirectly through the app menus in this automation context.
+
+| Shortcut | Action | Status |
+| --- | --- | --- |
+| <kbd>Command</kbd> + <kbd>1</kbd> | Switch to Day view | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>2</kbd> | Switch to Week view | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>3</kbd> | Switch to Month view | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>4</kbd> | Switch to Year view | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>Right Arrow</kbd> | Go to the next day, week, month, or year | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>Left Arrow</kbd> | Go to the previous day, week, month, or year | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>T</kbd> | Go to today | Verified locally in the app menu and matches Apple docs |
+| <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>T</kbd> | Go to a specific date | Verified locally in the app menu and matches Apple docs |
+| <kbd>Command</kbd> + <kbd>N</kbd> | Add a new event | Verified locally in the app menu and cross-checked by creating a test event through Calendar scripting |
+| <kbd>Command</kbd> + <kbd>E</kbd> | Edit the selected event | Documented by Apple |
+| <kbd>Command</kbd> + <kbd>I</kbd> | Show information for a calendar or event | Documented by Apple |
+| <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd> | Select the next or previous event, or move between fields while an event editor is open | Documented by Apple |
+| <kbd>Arrow Keys</kbd> | Select the next or previous event | Documented by Apple |
+| <kbd>Control</kbd> + <kbd>Option</kbd> + <kbd>Arrow Keys</kbd> | Move the selected event in supported views | Documented by Apple |
+| <kbd>Return</kbd> or <kbd>Escape</kbd> | Close the event editor | Documented by Apple |
+
+### Notes
+
+- Apple explicitly warns that shortcuts can vary by language and keyboard layout. This machine is using a German-localized Calendar app, and the menu labels surfaced as `Ablage`, `Darstellung`, `Tagesansicht`, `Wochenansicht`, `Monatsansicht`, and `Jahresansicht`.
+- In this headless automation context, menu shortcuts are reproducible and queryable, but focus-driven key playback to a visible Calendar window is not consistently available. The statuses above reflect that boundary instead of overstating what was exercised.
+
+---
+
+## Semantic Structure
+
+Apple Calendar is not a web widget, so there is no HTML landmark structure and no ARIA attribute surface to inspect. The semantic structure is exposed through macOS accessibility roles instead.
+
+From direct local inspection through `System Events` on April 5, 2026, Calendar exposed the following native accessibility objects:
+
+- A top-level application window (`AXWindow`).
+- A `splitter group` that contains the primary navigation and calendar content areas.
+- A toolbar containing grouped controls, including a `radio group` for `Day`, `Week`, `Month`, and `Year` view switching.
+- Navigation buttons for previous period, today, and next period.
+- Day buckets exposed as `list` nodes.
+- In the reproducible month-view dump on this machine, event entries inside a day bucket were exposed as `button` controls whose accessibility descriptions included the event summary and start or end time details.
+
+The observed event text was semantically richer than a plain label. For example, Calendar exposed descriptions such as `Codex Apple Calendar accessibility check. Beginnt am 6. April 2026 um 10:00 und endet um 10:30.` That is the right pattern for screen-reader output in a native desktop calendar.
+
+### Confirmed Native Roles Seen During Testing
+
+| Observed node | Meaning |
+| --- | --- |
+| `AXWindow` | Main Calendar window |
+| `splitter group` | Structural container separating regions |
+| `toolbar` | Command surface for navigation and view switching |
+| `radio group` / `radio button` | Mutually exclusive view controls |
+| `button` | Period navigation and "Today" actions |
+| `list` | Day or date collections |
+| `button` inside a day list | Event entries with spoken title and timing details |
+
+### Implication For This Repo
+
+For web-based schedulers in this repository, semantic review focuses on HTML roles and ARIA. For Apple Calendar, the equivalent review target is the macOS accessibility tree. That makes Apple Calendar a useful comparison point, but not a direct apples-to-apples ARIA reference.

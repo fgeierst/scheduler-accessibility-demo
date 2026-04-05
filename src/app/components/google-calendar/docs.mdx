@@ -1,0 +1,84 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Calendars/Google Calendar/Docs" />
+
+# Google Calendar
+
+- Product: Google Calendar for computer
+- Official documentation:
+  - [Use Google Calendar with a screen reader](https://support.google.com/calendar/answer/6101541?co=GENIE.Platform%3DDesktop&hl=en)
+  - [Use keyboard shortcuts in Google Calendar](https://support.google.com/calendar/answer/37034?co=GENIE.Platform%3DDesktop&hl=en)
+  - [Change Google Calendar settings](https://support.google.com/calendar/answer/6084644?co=GENIE.Platform%3DDesktop&hl=en)
+
+---
+
+## Keyboard Functionality
+
+Google Calendar only exposes keyboard shortcuts after they are enabled in settings. Google’s help pages also note that you can type `?` to show the shortcut list.
+
+### Documented Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| <kbd>?</kbd> | Show the keyboard shortcut list |
+| <kbd>j</kbd> or <kbd>n</kbd> | Move to the next date range |
+| <kbd>r</kbd> | Refresh the calendar |
+| <kbd>t</kbd> | Move to the current day |
+| <kbd>+</kbd> | Move to add a calendar section |
+| <kbd>/</kbd> | Put the cursor in the search box |
+| <kbd>s</kbd> | Go to the Settings page |
+| <kbd>g</kbd> | Go to a specific date |
+| <kbd>1</kbd> or <kbd>d</kbd> | Day view |
+| <kbd>2</kbd> or <kbd>w</kbd> | Week view |
+| <kbd>3</kbd> or <kbd>m</kbd> | Month view |
+| <kbd>4</kbd> or <kbd>x</kbd> | Custom view |
+| <kbd>5</kbd> or <kbd>a</kbd> | Agenda view |
+| <kbd>6</kbd> or <kbd>y</kbd> | Year view |
+| <kbd>c</kbd> | Create a new event |
+| <kbd>e</kbd> | See an event’s details |
+| <kbd>Delete</kbd> or <kbd>Backspace</kbd> | Delete an event |
+| <kbd>z</kbd> | Undo |
+| <kbd>Command</kbd> + <kbd>S</kbd> or <kbd>Command</kbd> + <kbd>Enter</kbd> | Save an event on Mac |
+| <kbd>Ctrl</kbd> + <kbd>S</kbd> or <kbd>Ctrl</kbd> + <kbd>Enter</kbd> | Save an event on Windows or ChromeOS |
+| <kbd>Esc</kbd> | Return to calendar grid from an event details page |
+| <kbd>Ctrl</kbd> + <kbd>/</kbd> on Windows or ChromeOS, <kbd>Command</kbd> + <kbd>/</kbd> on MacOS | Open the keyboard shortcuts help |
+
+### Accessibility Notes
+
+- Google recommends using Calendar as a web application rather than a plain webpage when you use a screen reader.
+- The screen-reader guide describes four main interface regions: banner area, events area, main drawer area, and right sidebar.
+- For screen-reader users, Google recommends `schedule view`, also called `agenda view`, as the main events area because it works better with assistive technology than the denser calendar views.
+- Google’s help also recommends Chrome plus NVDA or JAWS on Windows, ChromeVox on ChromeOS, and VoiceOver on macOS.
+
+---
+
+## Semantic Structure
+
+Google Calendar is a web application, so the semantic model is exposed through HTML landmarks, buttons, links, regions, and keyboard-focusable controls rather than through native desktop accessibility roles.
+
+From the official screen-reader guide, the interface is organized into these documented regions:
+
+- `Banner area`
+- `Events area`
+- `Main drawer area`
+- `Right sidebar`
+
+That structure is the semantic baseline for accessibility review in a browser-based calendar. The guide also explicitly documents controls like the `Skip to main content` button, the `Keyboard shortcuts` button, the search box, the view switcher, and the side panel.
+
+### What This Repo Can Verify
+
+This repository does not include Google Calendar itself, and it does not host a live Google Calendar instance. Because of that, there is no local DOM or accessibility tree here to inspect for Google Calendar semantics or keyboard behavior.
+
+What can be verified in this repo is limited to documentation quality:
+
+- The documented shortcut set matches Google’s official help pages.
+- The documented landmark model matches Google’s screen-reader guide.
+- The docs page clearly separates browser-based semantics from native desktop accessibility patterns.
+
+### What Cannot Be Locally Verified Here
+
+- The live Google Calendar DOM structure in a real account session.
+- The runtime behavior of shortcuts after keyboard shortcuts are enabled in Google Calendar settings.
+- Screen-reader output in an actual browser session.
+
+For those checks, the authoritative source is Google’s own help documentation and a real Calendar session in the browser.
