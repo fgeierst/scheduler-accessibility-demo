@@ -20,6 +20,9 @@ const preview: Preview = {
       },
     },
     layout: 'fullscreen',
+    docs: {
+      toc: true,
+    },
   },
   globalTypes: {},
 };

@@ -14,52 +14,36 @@ import * as SyncfusionStories from './syncfusion.stories';
   - [Clipboard in Angular Schedule component](https://ej2.syncfusion.com/angular/documentation/schedule/clipboard)
   - [ScheduleModel API](https://ej2.syncfusion.com/angular/documentation/api/schedule/schedulemodel)
 
----
-
-## Local Test Status
-
-This repository now contains a rendered Syncfusion Scheduler story, so the component can be verified locally through Storybook.
-
-Use:
-
-```bash
-pnpm storybook
-```
+## Keyboard Functionality
 
 Two implementation-level flags matter for keyboard support:
 
-- `allowKeyboardInteraction`: enables Scheduler keyboard interaction and is documented as `true` by default.
+- `allowKeyboardInteraction`: enables Scheduler keyboard interaction (`true` by default).
 - `allowClipboard`: enables cut, copy, and paste shortcuts for appointments, but only works correctly when `allowKeyboardInteraction` is enabled.
 
----
-
-## Keyboard Functionality
-
-Syncfusion documents the Scheduler as keyboard-operable when `allowKeyboardInteraction` is enabled.
-
-| Shortcut | Action | Status |
-| --- | --- | --- |
-| <kbd>Alt</kbd> + <kbd>J</kbd> | Focus the Scheduler element | Documented by Syncfusion; application-level focus shortcut |
-| <kbd>Tab</kbd> | Move focus from the header bar into visible event elements, then out of the control | Documented by Syncfusion |
-| <kbd>Shift</kbd> + <kbd>Tab</kbd> | Reverse the tab order through events and header items | Documented by Syncfusion |
-| <kbd>Enter</kbd> | Open quick info on selected cells or events | Documented by Syncfusion |
-| <kbd>Escape</kbd> | Close an open popup | Documented by Syncfusion |
-| <kbd>Arrow Keys</kbd> | Move to adjacent cells in the requested direction | Documented by Syncfusion |
-| <kbd>Shift</kbd> + <kbd>Arrow Keys</kbd> | Extend multi-cell selection | Documented by Syncfusion |
-| <kbd>Delete</kbd> | Delete selected events | Documented by Syncfusion |
-| <kbd>Ctrl</kbd> + click | Multi-select events | Documented by Syncfusion |
-| <kbd>Alt</kbd> + <kbd>1</kbd> to <kbd>6</kbd> | Switch between Scheduler views | Documented by Syncfusion |
-| <kbd>Ctrl</kbd> + <kbd>Left Arrow</kbd> | Go to the previous date period | Documented by Syncfusion |
-| <kbd>Ctrl</kbd> + <kbd>Right Arrow</kbd> | Go to the next date period | Documented by Syncfusion |
-| <kbd>Left Arrow</kbd> / <kbd>Right Arrow</kbd> | Move between header items when focus is on the header bar | Documented by Syncfusion |
-| <kbd>Space</kbd> or <kbd>Enter</kbd> | Activate the focused item | Documented by Syncfusion |
-| <kbd>Page Up</kbd> / <kbd>Page Down</kbd> | Scroll the work-cell area | Documented by Syncfusion |
-| <kbd>Home</kbd> | Move selection to the first Scheduler cell | Documented by Syncfusion |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>Y</kbd> | Jump to today | Documented by Syncfusion |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd> | Open the editor window | Documented by Syncfusion |
-| <kbd>Ctrl</kbd> + <kbd>C</kbd> | Copy an appointment | Documented by Syncfusion when `allowClipboard` is `true` |
-| <kbd>Ctrl</kbd> + <kbd>X</kbd> | Cut an appointment | Documented by Syncfusion when `allowClipboard` is `true` |
-| <kbd>Ctrl</kbd> + <kbd>V</kbd> | Paste an appointment into a time slot | Documented by Syncfusion when `allowClipboard` is `true` |
+| Shortcut                                         | Action                                                                              | Status                                                     |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| <kbd>Alt</kbd> + <kbd>J</kbd>                    | Focus the Scheduler element                                                         | Documented by Syncfusion; application-level focus shortcut |
+| <kbd>Tab</kbd>                                   | Move focus from the header bar into visible event elements, then out of the control | Documented by Syncfusion                                   |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd>                | Reverse the tab order through events and header items                               | Documented by Syncfusion                                   |
+| <kbd>Enter</kbd>                                 | Open quick info on selected cells or events                                         | Documented by Syncfusion                                   |
+| <kbd>Escape</kbd>                                | Close an open popup                                                                 | Documented by Syncfusion                                   |
+| <kbd>Arrow Keys</kbd>                            | Move to adjacent cells in the requested direction                                   | Documented by Syncfusion                                   |
+| <kbd>Shift</kbd> + <kbd>Arrow Keys</kbd>         | Extend multi-cell selection                                                         | Documented by Syncfusion                                   |
+| <kbd>Delete</kbd>                                | Delete selected events                                                              | Documented by Syncfusion                                   |
+| <kbd>Ctrl</kbd> + click                          | Multi-select events                                                                 | Documented by Syncfusion                                   |
+| <kbd>Alt</kbd> + <kbd>1</kbd> to <kbd>6</kbd>    | Switch between Scheduler views                                                      | Documented by Syncfusion                                   |
+| <kbd>Ctrl</kbd> + <kbd>Left Arrow</kbd>          | Go to the previous date period                                                      | Documented by Syncfusion                                   |
+| <kbd>Ctrl</kbd> + <kbd>Right Arrow</kbd>         | Go to the next date period                                                          | Documented by Syncfusion                                   |
+| <kbd>Left Arrow</kbd> / <kbd>Right Arrow</kbd>   | Move between header items when focus is on the header bar                           | Documented by Syncfusion                                   |
+| <kbd>Space</kbd> or <kbd>Enter</kbd>             | Activate the focused item                                                           | Documented by Syncfusion                                   |
+| <kbd>Page Up</kbd> / <kbd>Page Down</kbd>        | Scroll the work-cell area                                                           | Documented by Syncfusion                                   |
+| <kbd>Home</kbd>                                  | Move selection to the first Scheduler cell                                          | Documented by Syncfusion                                   |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>Y</kbd> | Jump to today                                                                       | Documented by Syncfusion                                   |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd> | Open the editor window                                                              | Documented by Syncfusion                                   |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd>                   | Copy an appointment                                                                 | Documented by Syncfusion when `allowClipboard` is `true`   |
+| <kbd>Ctrl</kbd> + <kbd>X</kbd>                   | Cut an appointment                                                                  | Documented by Syncfusion when `allowClipboard` is `true`   |
+| <kbd>Ctrl</kbd> + <kbd>V</kbd>                   | Paste an appointment into a time slot                                               | Documented by Syncfusion when `allowClipboard` is `true`   |
 
 ### Notes
 
@@ -75,17 +59,17 @@ Syncfusion documents the Scheduler as a WAI-ARIA-based web component with roles,
 
 ### Documented Roles And Attributes
 
-| Documented semantic | Meaning |
-| --- | --- |
-| `role="main"` on the Scheduler parent | Marks the Scheduler as the component’s main content area |
-| `role="button"` on appointments | Exposes appointments as interactive controls |
-| `aria-label` on the Scheduler root | Announces the current date and updates as the date changes |
-| `aria-label` on navigation controls, date-range header text, and appointments | Provides accessible names for header and event controls |
-| `aria-labelledby` | Associates the editor dialog with its title |
-| `aria-describedby` | Associates the editor dialog with descriptive content |
-| `aria-disabled` on appointments | Conveys disabled event state to assistive technologies |
+| Documented semantic                                                           | Meaning                                                    |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `role="main"` on the Scheduler parent                                         | Marks the Scheduler as the component’s main content area   |
+| `role="button"` on appointments                                               | Exposes appointments as interactive controls               |
+| `aria-label` on the Scheduler root                                            | Announces the current date and updates as the date changes |
+| `aria-label` on navigation controls, date-range header text, and appointments | Provides accessible names for header and event controls    |
+| `aria-labelledby`                                                             | Associates the editor dialog with its title                |
+| `aria-describedby`                                                            | Associates the editor dialog with descriptive content      |
+| `aria-disabled` on appointments                                               | Conveys disabled event state to assistive technologies     |
 
-### Accessibility Claims In Vendor Docs
+## Accessibility Claims In Vendor Docs
 
 Syncfusion states that the Angular Scheduler supports:
 
@@ -97,9 +81,3 @@ Syncfusion states that the Angular Scheduler supports:
 - mobile devices
 - keyboard navigation
 - automated accessibility checking with accessibility-checker and axe-core
-
-### Implication For This Repo
-
-Compared with the existing DHTMLX and FullCalendar entries, Syncfusion is the clearest example in this repo of a vendor explicitly documenting both WAI-ARIA semantics and a broad built-in keyboard model for a web scheduler.
-
-With the new story, that local inspection path now exists in Storybook and the component can be exercised alongside the other scheduler demos.
