@@ -11,36 +11,34 @@ import * as FullcalendarStories from './fullcalendar.stories';
 - [Documentation](https://fullcalendar.io/docs)
 - [Angular Integration](https://fullcalendar.io/docs/angular)
 
----
-
 ## Keyboard Navigation
 
 FullCalendar includes built-in keyboard navigation support.
 
 ### General Navigation
 
-| Shortcut         | Action                              |
-| ---------------- | ----------------------------------- |
+| Shortcut         | Action                                |
+| ---------------- | ------------------------------------- |
 | <kbd>Tab</kbd>   | Navigate through interactive elements |
-| <kbd>Enter</kbd> | Activate focused element            |
-| <kbd>Esc</kbd>   | Close dialogs/cancel actions        |
+| <kbd>Enter</kbd> | Activate focused element              |
+| <kbd>Esc</kbd>   | Close dialogs/cancel actions          |
 
 ### Calendar Navigation
 
-| Action           | Description                         |
-| ---------------- | ----------------------------------- |
-| Click view buttons | Switch between Day/Week/Month     |
-| Click prev/next    | Navigate to previous/next period  |
-| Click "today"      | Jump to current date              |
+| Action             | Description                      |
+| ------------------ | -------------------------------- |
+| Click view buttons | Switch between Day/Week/Month    |
+| Click prev/next    | Navigate to previous/next period |
+| Click "today"      | Jump to current date             |
 
 ### Event Interaction
 
-| Action           | Description                         |
-| ---------------- | ----------------------------------- |
-| Click + Drag     | Create new event                    |
-| Drag event       | Move event to new time              |
-| Drag edge        | Resize event duration               |
-| Click event      | Open event details/delete           |
+| Action       | Description            |
+| ------------ | ---------------------- |
+| Click + Drag | Create new event       |
+| Drag event   | Move event to new time |
+| Drag edge    | Resize event duration  |
+| Click event  | Open event details     |
 
 > **Note:** On macOS, <kbd>Cmd</kbd> (⌘) is used instead of <kbd>Ctrl</kbd>, and <kbd>Option</kbd> (⌥) instead of <kbd>Alt</kbd>.
 
@@ -53,3 +51,8 @@ FullCalendar includes built-in accessibility features with proper ARIA attribute
 - **`role="application"`** - The calendar container uses the application role to indicate it has custom interaction patterns
 - **Button labels** - All navigation buttons have accessible labels for screen readers
 - **Event labels** - Events include title and time information for accessibility
+
+## Features
+
+- Details view: this demo uses a browser alert for event descriptions; it is not a built-in FullCalendar details view.
+- Add view: FullCalendar provides date selection callbacks, but no built-in add-event view in this demo. The current wrapper uses a browser prompt when creating an event from a selected range.

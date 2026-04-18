@@ -7,7 +7,13 @@ import {
   signal,
 } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventClickArg, DateSelectArg, EventInput } from '@fullcalendar/core';
+import {
+  CalendarOptions,
+  DateSelectArg,
+  EventChangeArg,
+  EventClickArg,
+  EventInput,
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -137,22 +143,25 @@ export class FullcalendarComponent {
 
   private handleEventClick(clickInfo: EventClickArg): void {
     const event = clickInfo.event;
-    
-    this.eventClicked.emit({
+    const selectedEvent = {
       id: event.id,
       title: event.title,
+      description: this.normalizeDescription(event.extendedProps['description']),
+    };
+
+    alert(`${selectedEvent.title}\n\n${selectedEvent.description || 'No description provided.'}`);
+
+    this.eventClicked.emit({
+      id: selectedEvent.id,
+      title: selectedEvent.title,
+      description: selectedEvent.description,
       start: event.start || new Date(),
       end: event.end || undefined,
       allDay: event.allDay,
     });
-
-    if (confirm(`Are you sure you want to delete the event '${event.title}'?`)) {
-      event.remove();
-      this.eventDeleted.emit({ id: event.id });
-    }
   }
 
-  private handleEventChange(changeInfo: any): void {
+  private handleEventChange(changeInfo: EventChangeArg): void {
     const event = changeInfo.event;
     
     this.eventUpdated.emit({
@@ -162,5 +171,9 @@ export class FullcalendarComponent {
       end: event.end || undefined,
       allDay: event.allDay,
     });
+  }
+
+  private normalizeDescription(description: unknown): string | undefined {
+    return typeof description === 'string' ? description : undefined;
   }
 }

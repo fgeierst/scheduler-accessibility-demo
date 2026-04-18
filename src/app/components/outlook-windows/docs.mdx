@@ -11,8 +11,6 @@ import { Meta } from '@storybook/addon-docs/blocks';
   - [Basic tasks using a screen reader with the calendar in Outlook](https://support.microsoft.com/en-gb/office/basic-tasks-using-a-screen-reader-with-the-calendar-in-outlook-857e6fd5-72b0-409d-973d-c8dc6b77a817)
   - [Use a screen reader to explore and navigate Outlook Calendar](https://support.microsoft.com/en-us/office/use-a-screen-reader-to-explore-and-navigate-outlook-calendar-b5fdd8af-3054-4b4c-8049-440be280d3af)
 
----
-
 ## Local Test Method
 
 This repo does not include a Windows Outlook runtime, so this entry is documentation-driven rather than locally executable in this workspace.
@@ -23,31 +21,27 @@ The verification boundary is:
 2. The documented behavior is compared against the semantic model exposed to screen readers: view switcher, date picker, calendar list, calendar view options, and calendar view.
 3. No local UI Automation or keyboard playback is possible here without a Windows Outlook installation.
 
----
-
 ## Keyboard Functionality
 
 These shortcuts are documented by Microsoft for **new Outlook for Windows**.
 
-| Shortcut | Action | Status |
-| --- | --- | --- |
-| <kbd>Ctrl</kbd> + <kbd>2</kbd> | Open Calendar | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>N</kbd> | Create a new calendar item | Documented by Microsoft |
-| <kbd>Enter</kbd> | Open the selected item | Documented by Microsoft |
-| <kbd>Delete</kbd> | Delete the selected item | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Left Arrow</kbd> / <kbd>Ctrl</kbd> + <kbd>Right Arrow</kbd> | Move to the previous or next day in Day view | Documented by Microsoft |
-| <kbd>Alt</kbd> + <kbd>Down Arrow</kbd> / <kbd>Alt</kbd> + <kbd>Up Arrow</kbd> | Move to the previous or next week in Week and Work Week views | Documented by Microsoft |
-| <kbd>Alt</kbd> + <kbd>Page Down</kbd> / <kbd>Alt</kbd> + <kbd>Page Up</kbd> | Move to the previous or next month in Month view | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | Switch to Work Week view | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | Switch to Full Week view | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | Switch to Month view | Documented by Microsoft |
-| <kbd>Alt</kbd> + <kbd>1</kbd> through <kbd>Alt</kbd> + <kbd>10</kbd> | Show 1 to 10 days starting from today | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Period</kbd> | Browse events in the current view | Documented by Microsoft |
-| <kbd>Ctrl</kbd> + <kbd>Comma</kbd> | Move to the previous event | Documented by Microsoft |
+| Shortcut                                                                           | Action                                                        | Status                  |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------- |
+| <kbd>Ctrl</kbd> + <kbd>2</kbd>                                                     | Open Calendar                                                 | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>N</kbd>                                                     | Create a new calendar item                                    | Documented by Microsoft |
+| <kbd>Enter</kbd>                                                                   | Open the selected item                                        | Documented by Microsoft |
+| <kbd>Delete</kbd>                                                                  | Delete the selected item                                      | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Left Arrow</kbd> / <kbd>Ctrl</kbd> + <kbd>Right Arrow</kbd> | Move to the previous or next day in Day view                  | Documented by Microsoft |
+| <kbd>Alt</kbd> + <kbd>Down Arrow</kbd> / <kbd>Alt</kbd> + <kbd>Up Arrow</kbd>      | Move to the previous or next week in Week and Work Week views | Documented by Microsoft |
+| <kbd>Alt</kbd> + <kbd>Page Down</kbd> / <kbd>Alt</kbd> + <kbd>Page Up</kbd>        | Move to the previous or next month in Month view              | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd>                                    | Switch to Work Week view                                      | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd>                                    | Switch to Full Week view                                      | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd>                                    | Switch to Month view                                          | Documented by Microsoft |
+| <kbd>Alt</kbd> + <kbd>1</kbd> through <kbd>Alt</kbd> + <kbd>10</kbd>               | Show 1 to 10 days starting from today                         | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Period</kbd>                                                | Browse events in the current view                             | Documented by Microsoft |
+| <kbd>Ctrl</kbd> + <kbd>Comma</kbd>                                                 | Move to the previous event                                    | Documented by Microsoft |
 
 Microsoft also documents that shortcuts are based on the US keyboard layout and that new Outlook differs from classic Outlook for Windows.
-
----
 
 ## Semantic Structure
 
@@ -66,11 +60,11 @@ Microsoft also states that when you open Calendar, screen readers announce the c
 
 ### Confirmed Microsoft Guidance
 
-| Guidance | Meaning |
-| --- | --- |
-| `Tab` | Move focus through screen elements |
-| `Ctrl` + `F6` | Cycle through main regions |
-| `Enter` | Activate the current button or selectable element |
+| Guidance                    | Meaning                                                                   |
+| --------------------------- | ------------------------------------------------------------------------- |
+| `Tab`                       | Move focus through screen elements                                        |
+| `Ctrl` + `F6`               | Cycle through main regions                                                |
+| `Enter`                     | Activate the current button or selectable element                         |
 | `Month view` event browsing | Screen readers announce individual events and allow browsing through them |
 
 ### Implication For This Repo

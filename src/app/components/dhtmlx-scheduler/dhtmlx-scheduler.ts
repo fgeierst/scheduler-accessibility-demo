@@ -213,6 +213,12 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
         return true;
       }),
 
+      // Handle event activation
+      schedulerInstance.attachEvent('onClick', (id) => {
+        schedulerInstance.showLightbox(id);
+        return false;
+      }),
+
       // Handle view change to restore focus
       schedulerInstance.attachEvent('onViewChange', () => {
         // Restore focus to the data area after view change
