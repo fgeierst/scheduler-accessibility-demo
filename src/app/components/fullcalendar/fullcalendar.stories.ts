@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { expect, userEvent, waitFor } from 'storybook/test';
+import { getFullCalendarEvents, sampleCalendarInitialDate } from '../events';
 import { CalendarEvent, FullcalendarComponent } from './fullcalendar';
 
 // Wrapper component that includes FullCalendar
@@ -41,46 +42,8 @@ import { CalendarEvent, FullcalendarComponent } from './fullcalendar';
   ],
 })
 class FullcalendarDemoComponent {
-  events: CalendarEvent[] = [
-    {
-      id: '1',
-      title: 'Team Meeting',
-      start: '2024-10-14T09:00:00',
-      end: '2024-10-14T11:00:00',
-    },
-    {
-      id: '2',
-      title: 'Project Review',
-      start: '2024-10-15T10:00:00',
-      end: '2024-10-15T12:00:00',
-    },
-    {
-      id: '3',
-      title: 'Client Presentation',
-      start: '2024-10-16T14:00:00',
-      end: '2024-10-16T15:30:00',
-    },
-    {
-      id: '4',
-      title: 'Lunch Meeting',
-      start: '2024-10-17T12:00:00',
-      end: '2024-10-17T13:00:00',
-    },
-    {
-      id: '5',
-      title: 'Launch Planning',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:30:00',
-    },
-    {
-      id: '6',
-      title: 'Offsite Prep',
-      start: '2024-10-18',
-      allDay: true,
-    },
-  ];
-
-  initialDate = new Date(2024, 9, 16, 10); // October 16, 2024
+  events: CalendarEvent[] = getFullCalendarEvents();
+  initialDate = sampleCalendarInitialDate;
   lastAction = '';
 
   onEventCreated(event: CalendarEvent): void {
@@ -144,12 +107,12 @@ export const Playground: Story = {
     const previousButton = canvasElement.querySelector<HTMLButtonElement>('.fc-prev-button');
     const nextButton = canvasElement.querySelector<HTMLButtonElement>('.fc-next-button');
     const title = canvasElement.querySelector<HTMLElement>('.fc-toolbar-title');
-    const teamMeeting = Array.from(
+    const lunchWithLlama = Array.from(
       canvasElement.querySelectorAll<HTMLElement>('.fc-timegrid-event .fc-event-title'),
-    ).find((element) => element.textContent?.trim() === 'Team Meeting');
+    ).find((element) => element.textContent?.trim() === 'Lunch with Llama');
     const frameWindow = canvasElement.ownerDocument.defaultView;
 
-    if (!application || !previousButton || !nextButton || !title || !teamMeeting) {
+    if (!application || !previousButton || !nextButton || !title || !lunchWithLlama) {
       throw new Error(
         'Expected FullCalendar to render its application root, navigation, title, and events',
       );
@@ -159,7 +122,7 @@ export const Playground: Story = {
     await expect(previousButton).toBeVisible();
     await expect(nextButton).toBeVisible();
     expect(title.textContent).toMatch(/Oct 13.*19, 2024/);
-    await expect(teamMeeting).toBeVisible();
+    await expect(lunchWithLlama).toBeVisible();
 
     const originalConfirm = frameWindow?.confirm;
     if (frameWindow) {
@@ -167,9 +130,9 @@ export const Playground: Story = {
     }
 
     try {
-      await userEvent.click(teamMeeting);
+      await userEvent.click(lunchWithLlama);
       await waitFor(() => {
-        expect(canvasElement.textContent).toContain('Last Action: Event clicked: Team Meeting');
+        expect(canvasElement.textContent).toContain('Last Action: Event clicked: Lunch with Llama');
       });
 
       nextButton.focus();

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getFullCalendarEvents } from '../events';
 import { CalendarEvent } from './fullcalendar';
 
 @Injectable({
@@ -10,29 +11,7 @@ export class CalendarEventService {
    * In a real application, this would fetch from an API
    */
   getEvents(): Promise<CalendarEvent[]> {
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
-
-    return Promise.resolve([
-      {
-        id: '1',
-        title: 'Team Meeting',
-        start: `${todayStr}T09:00:00`,
-        end: `${todayStr}T13:00:00`,
-      },
-      {
-        id: '2',
-        title: 'Project Review',
-        start: `${todayStr}T10:00:00`,
-        end: `${todayStr}T14:00:00`,
-      },
-      {
-        id: '3',
-        title: 'Client Presentation',
-        start: `${todayStr}T14:00:00`,
-        end: `${todayStr}T16:00:00`,
-      },
-    ]);
+    return Promise.resolve(getFullCalendarEvents());
   }
 
   /**

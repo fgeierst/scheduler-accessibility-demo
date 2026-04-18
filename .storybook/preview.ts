@@ -23,6 +23,12 @@ const preview: Preview = {
     docs: {
       toc: true,
     },
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: ['Calendars', ['Introduction', 'Test Steps']],
+      },
+    },
   },
   globalTypes: {},
 };

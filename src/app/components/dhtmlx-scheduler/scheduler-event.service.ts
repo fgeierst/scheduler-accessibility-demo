@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getDhtmlxSchedulerEvents } from '../events';
 import { SchedulerEvent } from './dhtmlx-scheduler';
 
 @Injectable({
@@ -10,26 +11,7 @@ export class SchedulerEventService {
    * In a real application, this would fetch from an API
    */
   getEvents(): Promise<SchedulerEvent[]> {
-    return Promise.resolve([
-      {
-        id: 1,
-        start_date: '2024-10-07 09:00',
-        end_date: '2024-10-07 13:00',
-        text: 'Team Meeting',
-      },
-      {
-        id: 2,
-        start_date: '2024-10-08 10:00',
-        end_date: '2024-10-08 14:00',
-        text: 'Project Review',
-      },
-      {
-        id: 3,
-        start_date: '2024-10-09 14:00',
-        end_date: '2024-10-09 16:00',
-        text: 'Client Presentation',
-      },
-    ]);
+    return Promise.resolve(getDhtmlxSchedulerEvents());
   }
 
   /**

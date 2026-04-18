@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { expect, userEvent, waitFor } from 'storybook/test';
+import { getDhtmlxSchedulerEvents, sampleCalendarInitialDate } from '../events';
 import { DhtmlxSchedulerComponent, SchedulerEvent } from './dhtmlx-scheduler';
 
 @Component({
@@ -24,34 +25,8 @@ import { DhtmlxSchedulerComponent, SchedulerEvent } from './dhtmlx-scheduler';
   `,
 })
 class DhtmlxSchedulerDemoComponent {
-  events: SchedulerEvent[] = [
-    {
-      id: 1,
-      start_date: '2024-10-07 09:00',
-      end_date: '2024-10-07 13:00',
-      text: 'Team Meeting',
-    },
-    {
-      id: 2,
-      start_date: '2024-10-08 10:00',
-      end_date: '2024-10-08 12:00',
-      text: 'Project Review',
-    },
-    {
-      id: 3,
-      start_date: '2024-10-09 14:00',
-      end_date: '2024-10-09 16:00',
-      text: 'Client Presentation',
-    },
-    {
-      id: 4,
-      start_date: '2024-10-10 11:00',
-      end_date: '2024-10-10 12:30',
-      text: 'Lunch Meeting',
-    },
-  ];
-
-  initialDate = new Date(2024, 9, 7, 10); // October 7, 2024
+  events: SchedulerEvent[] = getDhtmlxSchedulerEvents();
+  initialDate = sampleCalendarInitialDate;
   lastAction = '';
 
   onEventCreated(event: SchedulerEvent): void {
@@ -94,23 +69,23 @@ export const Playground: Story = {
       ),
       calendarGrid: canvasElement.querySelector<HTMLElement>('[aria-label="Calendar grid"]'),
       monthTab: canvasElement.querySelector<HTMLElement>('.dhx_cal_navline [data-tab="month"]'),
-      teamMeeting: canvasElement.querySelector<HTMLElement>('[aria-label="Team Meeting"]'),
+      lunchWithLlama: canvasElement.querySelector<HTMLElement>('[aria-label="Lunch with Llama"]'),
     });
 
     await waitFor(
       () => {
-        const { application, calendarGrid, monthTab, teamMeeting } = getElements();
+        const { application, calendarGrid, monthTab, lunchWithLlama } = getElements();
         expect(application).not.toBeNull();
         expect(calendarGrid).not.toBeNull();
         expect(monthTab).not.toBeNull();
-        expect(teamMeeting).not.toBeNull();
+        expect(lunchWithLlama).not.toBeNull();
       },
       { timeout: 5000 },
     );
 
-    const { application, calendarGrid, monthTab, teamMeeting } = getElements();
+    const { application, calendarGrid, monthTab, lunchWithLlama } = getElements();
 
-    if (!application || !calendarGrid || !monthTab || !teamMeeting) {
+    if (!application || !calendarGrid || !monthTab || !lunchWithLlama) {
       throw new Error(
         'Expected the DHTMLX scheduler to render its application, grid, tab, and event',
       );
@@ -118,7 +93,7 @@ export const Playground: Story = {
 
     await expect(application).toBeVisible();
     await expect(calendarGrid).toBeVisible();
-    await expect(teamMeeting).toBeVisible();
+    await expect(lunchWithLlama).toBeVisible();
     await expect(monthTab).not.toBeNull();
 
     application.focus();

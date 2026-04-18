@@ -1,46 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { getSyncfusionEvents, sampleCalendarInitialDate } from '../events';
 import { SyncfusionEvent, SyncfusionSchedulerComponent } from './syncfusion';
 
-const events: SyncfusionEvent[] = [
-  {
-    Id: '1',
-    Subject: 'Team Meeting',
-    StartTime: new Date(2024, 9, 14, 9, 0),
-    EndTime: new Date(2024, 9, 14, 11, 0),
-  },
-  {
-    Id: '2',
-    Subject: 'Project Review',
-    StartTime: new Date(2024, 9, 15, 10, 0),
-    EndTime: new Date(2024, 9, 15, 12, 0),
-  },
-  {
-    Id: '3',
-    Subject: 'Client Presentation',
-    StartTime: new Date(2024, 9, 16, 14, 0),
-    EndTime: new Date(2024, 9, 16, 15, 30),
-  },
-  {
-    Id: '4',
-    Subject: 'Lunch Meeting',
-    StartTime: new Date(2024, 9, 17, 12, 0),
-    EndTime: new Date(2024, 9, 17, 13, 0),
-  },
-  {
-    Id: '5',
-    Subject: 'Launch Planning',
-    StartTime: new Date(2024, 9, 18, 15, 0),
-    EndTime: new Date(2024, 9, 18, 16, 30),
-  },
-  {
-    Id: '6',
-    Subject: 'Offsite Prep',
-    StartTime: new Date(2024, 9, 18, 0, 0),
-    EndTime: new Date(2024, 9, 18, 23, 59),
-    IsAllDay: true,
-  },
-];
+const events: SyncfusionEvent[] = getSyncfusionEvents();
 
 const eventClicked = fn<(event: SyncfusionEvent) => void>();
 
@@ -73,7 +36,7 @@ export const Playground: Story = {
   }),
   args: {
     events,
-    selectedDate: new Date(2024, 9, 16, 10),
+    selectedDate: sampleCalendarInitialDate,
     currentView: 'Week',
     height: '600px',
   },
@@ -84,7 +47,7 @@ export const Playground: Story = {
     const previousButton = await canvas.findByRole('button', { name: 'Previous' });
     const nextButton = await canvas.findByRole('button', { name: 'Next' });
     const weekButton = await canvas.findByRole('button', { name: 'Week' });
-    const teamMeeting = await canvas.findByRole('button', { name: /Team Meeting/ });
+    const lunchWithLlama = await canvas.findByRole('button', { name: /Lunch with Llama/ });
     const initialRange = await canvas.findByText(/October 13 - 19, 2024/i);
 
     await expect(application).toBeVisible();
@@ -92,12 +55,12 @@ export const Playground: Story = {
     await expect(previousButton).toBeVisible();
     await expect(nextButton).toBeVisible();
     await expect(weekButton).toBeVisible();
-    await expect(teamMeeting).toBeVisible();
+    await expect(lunchWithLlama).toBeVisible();
 
-    await userEvent.click(teamMeeting);
+    await userEvent.click(lunchWithLlama);
     await waitFor(() => {
       expect(eventClicked).toHaveBeenCalledWith(
-        expect.objectContaining({ Subject: 'Team Meeting' }),
+        expect.objectContaining({ Subject: 'Lunch with Llama' }),
       );
     });
 
