@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import './syncfusion-license';
 import {
   ActionEventArgs,
   DayService,

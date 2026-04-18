@@ -63,6 +63,12 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
   /** Flag to track if scheduler is initialized */
   private isInitialized = false;
 
+  /** Scheduler event handler ids for cleanup */
+  private schedulerEventIds: string[] = [];
+
+  /** Container keydown handler cleanup */
+  private removeKeydownListener?: () => void;
+
   /** Width of the scheduler */
   width = input<string>('100%');
 
@@ -93,46 +99,39 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
   constructor() {
     // Watch for events changes and update scheduler
     effect(() => {
-      const events = this.events();
-      if (this.isInitialized && this.schedulerInstance) {
-        this.schedulerInstance.clearAll();
-        if (events && events.length > 0) {
-          this.schedulerInstance.parse(events);
-        }
-      }
+      this.syncEvents();
     });
   }
 
   ngOnInit(): void {
-    const container = this.schedulerContainer().nativeElement;
+    const container = this.schedulerContainer().nativeElement as HTMLElement;
+    const schedulerInstance = scheduler;
+
+    this.schedulerInstance = schedulerInstance;
 
     // Enable keyboard navigation plugin
-    scheduler.plugins({
+    schedulerInstance.plugins({
       key_nav: true,
     });
 
     // Configure scheduler
-    scheduler.config.date_format = this.dateFormat();
-    scheduler.config.header = ['day', 'week', 'month', 'date', 'prev', 'today', 'next'];
+    schedulerInstance.config.date_format = this.dateFormat();
+    schedulerInstance.config.header = ['day', 'week', 'month', 'date', 'prev', 'today', 'next'];
 
     // Initialize scheduler
-    scheduler.init(container, this.initialDate(), this.initialMode());
+    schedulerInstance.init(container, this.initialDate(), this.initialMode());
 
     // Setup accessibility attributes for the data area
     this.setupDataAreaAccessibility();
 
     // Set up event handlers
-    this.setupEventHandlers();
+    this.setupEventHandlers(schedulerInstance);
 
     // Set up custom keyboard shortcuts
     this.setupMacOSAltNumberShortcuts();
 
-    // Set instance and mark as initialized
-    this.schedulerInstance = scheduler;
     this.isInitialized = true;
-
-    // Don't parse here - let the effect handle it
-    // The effect will run after all inputs are set
+    this.syncEvents();
   }
 
   private setupDataAreaAccessibility(): void {
@@ -149,60 +148,81 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isInitialized = false;
+    this.removeKeydownListener?.();
+    this.removeKeydownListener = undefined;
+
     if (this.schedulerInstance) {
-      // Clear events but don't destroy the scheduler instance
-      // destructor() destroys the global instance which breaks reinit
+      for (const eventId of this.schedulerEventIds) {
+        this.schedulerInstance.detachEvent(eventId);
+      }
+      this.schedulerEventIds = [];
       this.schedulerInstance.clearAll();
-      // Detach event handlers to prevent memory leaks
-      this.schedulerInstance['detachAllEvents']();
+      this.schedulerInstance.destructor();
       this.schedulerInstance = undefined;
     }
   }
 
-  private setupEventHandlers(): void {
+  private syncEvents(): void {
+    const schedulerInstance = this.schedulerInstance;
+
+    if (!this.isInitialized || !schedulerInstance) {
+      return;
+    }
+
+    const events = this.events();
+
+    schedulerInstance.clearAll();
+    if (events.length > 0) {
+      schedulerInstance.parse(events);
+    }
+  }
+
+  private setupEventHandlers(schedulerInstance: SchedulerStatic): void {
     // Handle event creation
-    scheduler.attachEvent('onEventAdded', (id) => {
-      const event = scheduler.getEvent(id);
-      if (event) {
-        this.eventCreated.emit({
-          id: event.id,
-          start_date: event.start_date,
-          end_date: event.end_date,
-          text: event.text,
-        });
-      }
-      return true;
-    });
+    this.schedulerEventIds = [
+      schedulerInstance.attachEvent('onEventAdded', (id) => {
+        const event = schedulerInstance.getEvent(id);
+        if (event) {
+          this.eventCreated.emit({
+            id: event.id,
+            start_date: event.start_date,
+            end_date: event.end_date,
+            text: event.text,
+          });
+        }
+        return true;
+      }),
 
-    // Handle event update
-    scheduler.attachEvent('onEventChanged', (id) => {
-      const event = scheduler.getEvent(id);
-      if (event) {
-        this.eventUpdated.emit({
-          id: event.id,
-          start_date: event.start_date,
-          end_date: event.end_date,
-          text: event.text,
-        });
-      }
-      return true;
-    });
+      // Handle event update
+      schedulerInstance.attachEvent('onEventChanged', (id) => {
+        const event = schedulerInstance.getEvent(id);
+        if (event) {
+          this.eventUpdated.emit({
+            id: event.id,
+            start_date: event.start_date,
+            end_date: event.end_date,
+            text: event.text,
+          });
+        }
+        return true;
+      }),
 
-    // Handle event deletion
-    scheduler.attachEvent('onEventDeleted', (id) => {
-      this.eventDeleted.emit({ id });
-      return true;
-    });
+      // Handle event deletion
+      schedulerInstance.attachEvent('onEventDeleted', (id) => {
+        this.eventDeleted.emit({ id });
+        return true;
+      }),
 
-    // Handle view change to restore focus
-    scheduler.attachEvent('onViewChange', (new_mode, new_date) => {
-      // Restore focus to the data area after view change
-      // Use setTimeout to ensure DOM has been updated
-      setTimeout(() => {
-        this.restoreFocusToDataArea();
-      }, 0);
-      return true;
-    });
+      // Handle view change to restore focus
+      schedulerInstance.attachEvent('onViewChange', () => {
+        // Restore focus to the data area after view change
+        // Use setTimeout to ensure DOM has been updated
+        setTimeout(() => {
+          this.restoreFocusToDataArea();
+        }, 0);
+        return true;
+      }),
+    ];
   }
 
   private restoreFocusToDataArea(): void {
@@ -226,7 +246,7 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
     const container = this.schedulerContainer().nativeElement;
 
     // Add keydown listener to handle Alt+number on macOS
-    container.addEventListener('keydown', (e: KeyboardEvent) => {
+    const handleKeydown = (e: KeyboardEvent) => {
       // Check if Alt/Option key is pressed
       if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
         // Map of keyCodes for number keys (1-9)
@@ -242,7 +262,12 @@ export class DhtmlxSchedulerComponent implements OnInit, OnDestroy {
           }
         }
       }
-    });
+    };
+
+    container.addEventListener('keydown', handleKeydown);
+    this.removeKeydownListener = () => {
+      container.removeEventListener('keydown', handleKeydown);
+    };
   }
 
   getSchedulerInstance(): SchedulerStatic | undefined {

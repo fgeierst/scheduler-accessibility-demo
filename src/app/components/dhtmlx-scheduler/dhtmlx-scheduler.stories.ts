@@ -93,18 +93,27 @@ type Story = StoryObj<DhtmlxSchedulerDemoComponent>;
  */
 export const Playground: Story = {
   play: async ({ canvasElement }) => {
-    await waitFor(() => {
-      expect(
-        canvasElement.querySelector('[role="application"][aria-label="DHTMLX Scheduler"]'),
-      ).not.toBeNull();
+    const getElements = () => ({
+      application: canvasElement.querySelector<HTMLElement>(
+        '[role="application"][aria-label="DHTMLX Scheduler"]',
+      ),
+      calendarGrid: canvasElement.querySelector<HTMLElement>('[aria-label="Calendar grid"]'),
+      monthTab: canvasElement.querySelector<HTMLElement>('.dhx_cal_navline [data-tab="month"]'),
+      teamMeeting: canvasElement.querySelector<HTMLElement>('[aria-label="Team Meeting"]'),
     });
 
-    const application = canvasElement.querySelector<HTMLElement>(
-      '[role="application"][aria-label="DHTMLX Scheduler"]',
+    await waitFor(
+      () => {
+        const { application, calendarGrid, monthTab, teamMeeting } = getElements();
+        expect(application).not.toBeNull();
+        expect(calendarGrid).not.toBeNull();
+        expect(monthTab).not.toBeNull();
+        expect(teamMeeting).not.toBeNull();
+      },
+      { timeout: 5000 },
     );
-    const calendarGrid = canvasElement.querySelector<HTMLElement>('[aria-label="Calendar grid"]');
-    const monthTab = canvasElement.querySelector<HTMLElement>('.dhx_cal_navline [data-tab="month"]');
-    const teamMeeting = canvasElement.querySelector<HTMLElement>('[aria-label="Team Meeting"]');
+
+    const { application, calendarGrid, monthTab, teamMeeting } = getElements();
 
     if (!application || !calendarGrid || !monthTab || !teamMeeting) {
       throw new Error('Expected the DHTMLX scheduler to render its application, grid, tab, and event');
@@ -118,8 +127,13 @@ export const Playground: Story = {
     application.focus();
     await userEvent.keyboard('{Alt>}{3}{/Alt}');
 
-    await waitFor(() => {
-      expect(calendarGrid).toHaveFocus();
-    });
+    await waitFor(
+      () => {
+        const currentGrid = canvasElement.querySelector<HTMLElement>('[aria-label="Calendar grid"]');
+        expect(currentGrid).not.toBeNull();
+        expect(currentGrid).toHaveFocus();
+      },
+      { timeout: 5000 },
+    );
   },
 };

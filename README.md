@@ -11,10 +11,18 @@ pnpm install
 pnpm storybook
 ```
 
+## Environment
+
+Syncfusion Scheduler requires a license key at Storybook build time. For local development, copy `.env.example` to `.env.local` and set:
+
+```bash
+SYNCFUSION_LICENSE=your-license-key
+```
+
+Storybook loads the same value from those env files through Vite. For Vercel deployments, set `SYNCFUSION_LICENSE` in the Vercel project environment variables.
+
 ## Testing
 
 ```bash
 pnpm test
 ```
-
-

@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@analogjs/storybook-angular';
 import remarkGfm from 'remark-gfm';
+import { loadEnv, mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.@(mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -23,6 +24,18 @@ const config: StorybookConfig = {
   staticDirs: ['../public'],
   core: {
     disableTelemetry: true,
+  },
+  viteFinal: async (viteConfig, options) => {
+    const mode = options.configType === 'PRODUCTION' ? 'production' : 'development';
+    const env = loadEnv(mode, process.cwd(), '');
+
+    return mergeConfig(viteConfig, {
+      define: {
+        SYNCFUSION_LICENSE: JSON.stringify(
+          env['SYNCFUSION_LICENSE'] ?? process.env['SYNCFUSION_LICENSE'] ?? '',
+        ),
+      },
+    });
   },
 };
 

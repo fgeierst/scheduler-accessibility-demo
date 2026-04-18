@@ -45,3 +45,8 @@ Thumbs.db
 
 # Storybook
 storybook-static/
+
+# Local secrets
+.env
+.env.local
+.vercel
