@@ -112,11 +112,6 @@ const meta: Meta<FullcalendarDemoComponent> = {
       imports: [FullcalendarComponent],
     }),
   ],
-  parameters: {
-    a11y: {
-      test: 'off',
-    },
-  },
   argTypes: {
     events: {
       description: 'Array of calendar events to display',
@@ -138,7 +133,9 @@ type Story = StoryObj<FullcalendarDemoComponent>;
 export const Playground: Story = {
   play: async ({ canvasElement }) => {
     await waitFor(() => {
-      expect(canvasElement.querySelector('[role="application"][aria-label="FullCalendar"]')).not.toBeNull();
+      expect(
+        canvasElement.querySelector('[role="application"][aria-label="FullCalendar"]'),
+      ).not.toBeNull();
     });
 
     const application = canvasElement.querySelector<HTMLElement>(
@@ -147,12 +144,15 @@ export const Playground: Story = {
     const previousButton = canvasElement.querySelector<HTMLButtonElement>('.fc-prev-button');
     const nextButton = canvasElement.querySelector<HTMLButtonElement>('.fc-next-button');
     const title = canvasElement.querySelector<HTMLElement>('.fc-toolbar-title');
-    const teamMeeting = Array.from(canvasElement.querySelectorAll<HTMLElement>('.fc-timegrid-event .fc-event-title'))
-      .find((element) => element.textContent?.trim() === 'Team Meeting');
+    const teamMeeting = Array.from(
+      canvasElement.querySelectorAll<HTMLElement>('.fc-timegrid-event .fc-event-title'),
+    ).find((element) => element.textContent?.trim() === 'Team Meeting');
     const frameWindow = canvasElement.ownerDocument.defaultView;
 
     if (!application || !previousButton || !nextButton || !title || !teamMeeting) {
-      throw new Error('Expected FullCalendar to render its application root, navigation, title, and events');
+      throw new Error(
+        'Expected FullCalendar to render its application root, navigation, title, and events',
+      );
     }
 
     await expect(application).toBeVisible();

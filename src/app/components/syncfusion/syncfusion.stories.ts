@@ -23,19 +23,21 @@ import { SyncfusionEvent, SyncfusionSchedulerComponent } from './syncfusion';
       <p class="visually-hidden" aria-live="polite">Last Action: {{ lastAction }}</p>
     }
   `,
-  styles: [`
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-  `],
+  styles: [
+    `
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    `,
+  ],
 })
 class SyncfusionSchedulerDemoComponent {
   events: SyncfusionEvent[] = [
@@ -106,11 +108,6 @@ const meta: Meta<SyncfusionSchedulerDemoComponent> = {
       imports: [SyncfusionSchedulerComponent],
     }),
   ],
-  parameters: {
-    a11y: {
-      test: 'off',
-    },
-  },
 };
 
 export default meta;

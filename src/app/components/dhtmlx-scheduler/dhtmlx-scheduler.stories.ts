@@ -78,11 +78,6 @@ const meta: Meta<DhtmlxSchedulerDemoComponent> = {
       imports: [DhtmlxSchedulerComponent],
     }),
   ],
-  parameters: {
-    a11y: {
-      test: 'off',
-    },
-  },
 };
 
 export default meta;
@@ -116,7 +111,9 @@ export const Playground: Story = {
     const { application, calendarGrid, monthTab, teamMeeting } = getElements();
 
     if (!application || !calendarGrid || !monthTab || !teamMeeting) {
-      throw new Error('Expected the DHTMLX scheduler to render its application, grid, tab, and event');
+      throw new Error(
+        'Expected the DHTMLX scheduler to render its application, grid, tab, and event',
+      );
     }
 
     await expect(application).toBeVisible();
@@ -129,7 +126,9 @@ export const Playground: Story = {
 
     await waitFor(
       () => {
-        const currentGrid = canvasElement.querySelector<HTMLElement>('[aria-label="Calendar grid"]');
+        const currentGrid = canvasElement.querySelector<HTMLElement>(
+          '[aria-label="Calendar grid"]',
+        );
         expect(currentGrid).not.toBeNull();
         expect(currentGrid).toHaveFocus();
       },
